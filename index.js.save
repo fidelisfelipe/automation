@@ -1,0 +1,68 @@
+var express = require('express'); 
+var app = express();
+var path = require('path');
+var gpio = require('rpi-gpio');
+
+var LED = 3 
+var ECHO = 17
+var TRIGGER = 11
+
+var statusLed = "Press Button";
+var statusPulse = "Press Button";
+
+//definições
+gpio.setup(LED, gpio.DIR_OUT);
+//sonar
+gpio.setup(ECHO, gpio.DIR_IN);
+gpio.setup(TRIGGER, gpio.DIR_IN);
+
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
+console.log(path.join(__dirname, 'public'));
+app.get('/', function(req, res){ 
+  res.render('index',{statusLed:statusLed, statusPulse:statusPulse});
+});
+
+app.post('/led/on', function(req, res){
+gpio.write(LED, true, function(err) {
+
+        if (err) throw err;
+        console.log('Written True to pin');
+console.log(path.join(__dirname, 'public'));
+statusLed = "Led is On";
+return res.render('index', {statusLed: statusLed, statusPulse: statusPulse});
+    });
+});
+
+app.post('/led/off', function(req, res){
+    gpio.write(LED, false, function(err) {
+        if (err) throw err;
+        console.log('Written False to pin');
+	console.log(path.join(__dirname, 'public'));
+	statusLed = "Led is Off";
+	return res.render('index',{statusLed: statusLed, statusPulse: statusPulse});
+    });
+});
+
+app.post('/pulse/on', function (req, res){
+	console.log('pulse send');
+	
+	gpio.write(LED, true, function (err){
+		if (err) throw err;
+		console.log('Senden Pulse to pin');
+		statusPulse = "Pulse Sended";
+		return res.render('index', {statusLed: statusLed, statusPulse: statusPulse});
+	});
+	setTimeout(3000);
+	gpio.write(LED, false);
+
+		console.log('End Pulse to pin');
+		statusPulse = "End Pulse to pin";
+		return res.render('index',{statusLed: statusLed, statusPulse: statusPulse});
+	});
+});
+
+
+app.listen(3000, function () {
+  console.log('Server Started on Port: 3000!')
+})

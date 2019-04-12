@@ -1,0 +1,31 @@
+<meta name="viewport" content="width=500, initial-scale=1"> 
+
+<div class="BorderMargin">
+<image src = 'https://www.hypeness.com.br/wp-content/uploads/2017/06/otto.jpg' alt="LED" style="width:500px;height:250px;" align="left">
+<br />
+<h1>Welcome to Nodejs Server</h1>
+<h2>Led</h2>
+<form action="/led/on" method="post">
+<button type="submit" class="button">LED On </button>
+
+<button type="submit" formmethod="post" formaction="/led/off" class="button button3">LED Off</button>
+
+
+<a>Led Status: <%=statusLed %></a>
+</div>
+
+<h2>Pulse</h2>
+<a>Pulse Status: <%=statusPulse %></a>
+<button type="submit" formmethod="post" formaction="/pulse/on" class="button button4">Pulse ON</button>
+
+<h2>Accelemeter</h3>
+
+<p>
+<%=statusAcel %>
+<button type="submit" formmethod="post" formaction="/acel/data" class="button button5">
+get data
+</button>
+</p>
+
+</form>
+

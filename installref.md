@@ -27,6 +27,10 @@ sudo npm install express
 sudo npm install i2c-mpu6050
 sudo npm install i2c-bus
 
+sudo usermod -G i2c pi
+
+npm install --unsafe-perm i2c-bus
+
 https://github.com/emersion/node-i2c-mpu6050.git
 
 //outher

@@ -5,7 +5,7 @@ import serial
 import time, sys
 import datetime
 
-P_BUTTON = 24 # Button, adapt to your wiring
+P_BUTTON = 36 # Button, adapt to your wiring
 
 def setup():
     GPIO.setmode(GPIO.BOARD)
